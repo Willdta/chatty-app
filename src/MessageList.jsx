@@ -12,9 +12,17 @@ class MessageList extends Component {
   }
 
   render() {
+    const { messages } = this.state
+
     return (
       <main className="messages">
-        <Message messages={this.state.messages} />            
+        {
+          messages.map(message => {
+            return (
+              <Message message={message} />    
+            )
+          })
+        }           
       </main>
     );
   }

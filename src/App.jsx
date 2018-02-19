@@ -30,7 +30,7 @@ class App extends Component {
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
         
-        <MessageList messages={messages} username={messages.username} content={messages.content} />      
+        <MessageList messages={messages} />      
         <ChatBar userProp={currentUser.name}/>
       </div>
     );
