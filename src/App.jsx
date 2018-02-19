@@ -22,14 +22,16 @@ class App extends Component {
   }
 
   render() {
+
+    const {currentUser, messages} = this.state
     return (
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
         
-        <MessageList />      
-        <ChatBar />
+        <MessageList messages={messages} username={messages.username} content={messages.content} />      
+        <ChatBar userProp={currentUser.name}/>
       </div>
     );
   }
