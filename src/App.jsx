@@ -14,6 +14,7 @@ class App extends Component {
           content: 'Has anyone seen my marbles?',
           id: 1
         },
+        
         {
           username: 'Anonymous',
           content: 'No, I think you lost them. You lost your marbles Bob. You lost them for good.',
@@ -33,6 +34,8 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.WebSocket = new WebSocket("ws://localhost:3001")    
+    
     console.log("componentDidMount <App />");
     setTimeout(() => {
       console.log("Simulating incoming message");
@@ -46,8 +49,8 @@ class App extends Component {
   }
   
   render() {
-
     const {currentUser, messages} = this.state
+    
     return (
       <div>
         <nav className="navbar">

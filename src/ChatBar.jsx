@@ -27,13 +27,13 @@ class ChatBar extends Component {
             onChange = { this.changeContent }
             onKeyPress = {e => {
               if (e.key === 'Enter') {
-                this.submitInput();
+                this.submitInput()
               }
             }}     
           />
         </footer>
       </div>
-    );
+    )
   }
 
   submitInput = () => {
