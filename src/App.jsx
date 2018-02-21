@@ -17,7 +17,8 @@ class App extends Component {
     let messages = {
       username: message.username,
       content: message.content,
-      id: message.id
+      id: message.id,
+      type: message.type
     }
 
     let fullMessage = JSON.stringify(messages)
@@ -37,14 +38,15 @@ class App extends Component {
         messages: this.state.messages.concat([{
           username: message.username,
           content: message.content,
-          id: message.id
+          id: message.id,
+          type: message.type
         }])
       })
       
       console.log(JSON.parse(event.data));
     }
   }
-  
+
   render() {
     const {currentUser, messages} = this.state
     
@@ -52,7 +54,6 @@ class App extends Component {
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
-          <p>RENDER USER COUNT HERE</p>
         </nav>
         
         <MessageList messages={messages} />      
