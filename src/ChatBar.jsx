@@ -5,7 +5,7 @@ class ChatBar extends Component {
     super(props)
 
     this.state = {
-      username: this.props.userProp,
+      username: 'Anon',
       content: ''
     }
   }
@@ -22,7 +22,7 @@ class ChatBar extends Component {
     return (
       <div>
         <footer className="chatbar">
-          <input className="chatbar-username" placeholder="Your Name (Optional)" defaultValue={this.props.userProp} onChange={this.changeUsername} />
+          <input className="chatbar-username" placeholder="Your Name (Optional)" onChange={this.changeUsername} />
           <input className="chatbar-message" placeholder="Type a message and hit ENTER" 
             onChange = { this.changeContent }
             onKeyPress = {e => {

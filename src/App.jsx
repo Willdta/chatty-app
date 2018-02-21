@@ -12,28 +12,37 @@ class App extends Component {
     }
   }
 
-  // newMessage = (message) => {
-  //   this.setState({
-  //     messages: this.state.messages.concat([{
-  //       username: message.username,
-  //       content: message.content
-  //     }])
-  //   })
-  // }
-
   newMessage = (message) => {
+    
     let messages = {
       username: message.username,
-      content: message.content
+      content: message.content,
+      id: message.id
     }
 
-    let fullMessage = String(`user ${messages.username} said ${messages.content}`)
+    let fullMessage = JSON.stringify(messages)
 
-    this.socket.send(String(fullMessage))
+    this.socket.send(fullMessage)
   }
 
   componentDidMount() {
+
     this.socket = new WebSocket("ws://localhost:3001")
+
+    this.socket.onmessage = (event) => {
+
+      let message = JSON.parse(event.data)
+
+      this.setState({
+        messages: this.state.messages.concat([{
+          username: message.username,
+          content: message.content,
+          id: message.id
+        }])
+      })
+      
+      console.log(JSON.parse(event.data));
+    }
   }
   
   render() {
@@ -43,6 +52,7 @@ class App extends Component {
       <div>
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
+          <p>RENDER USER COUNT HERE</p>
         </nav>
         
         <MessageList messages={messages} />      
