@@ -10,7 +10,7 @@ class MessageList extends Component {
         {
           messages.map(message => {
             return (
-              <Message key={message.id} message={message} type={message.type} />    
+              <Message key={ message.id } message={ message } type={ message.type } />    
             )
           })
         }           

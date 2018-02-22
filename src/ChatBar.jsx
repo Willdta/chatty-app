@@ -18,6 +18,10 @@ class ChatBar extends Component {
     this.setState({ content: e.target.value })
   }
 
+  clearInput = () => {
+    this.contentInput.value = '' 
+  }
+
   render() {
     return (
       <div>
@@ -31,12 +35,14 @@ class ChatBar extends Component {
             }}
           />
           <input className="chatbar-message" placeholder="Type a message and hit ENTER" 
+            ref={el => this.contentInput = el}
             onChange = {this.changeContent}
             onKeyPress = {e => {
-              if (e.key === 'Enter') {
+              if (e.key === 'Enter') {            
                 this.submitInput()
+                this.clearInput()
               }
-            }}     
+            }}
           />
         </footer>
       </div>
@@ -64,3 +70,32 @@ class ChatBar extends Component {
 }
 
 export default ChatBar;
+
+// switch (message.type) {
+      //   case "counting connections":
+      //   // handle incoming message
+      //   console.log('test', message)
+      //     this.setState({ clientNumbers: message.count })
+
+      //     break;
+      //   case "postMessdsdage":
+      //   // handle incoming notification
+
+      //   // this.setState({
+      //   //   messages: this.state.messages.concat([{
+      //   //     username: message.username,
+      //   //     content: message.content,
+      //   //     id: message.id,
+      //   //     type: message.type
+      //   //   }])
+      //   // })
+
+      //     break;
+      //   case "currentClients":
+      //     // handle incoming notification
+
+      //     break;
+      //   default:
+      //   // show an error in the console if the message type is unknown
+      //   throw new Error("Unknown event type " + data.type);
+      // }

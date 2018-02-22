@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
+import NavBar from './NavBar.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -33,29 +34,46 @@ class App extends Component {
     this.socket.onmessage = (event) => {
 
       let message = JSON.parse(event.data)
-
-      this.setState({
-        messages: this.state.messages.concat([{
-          username: message.username,
-          content: message.content,
-          id: message.id,
-          type: message.type
-        }])
-      })
       
+      switch (message.type) {
+        case 'counting connections':
+        // handle incoming message
+
+        this.setState({clientCount: message.count})
+       
+          break;
+        case "postMessage":
+        // handle incoming notification
+        
+        this.setState({
+          messages: this.state.messages.concat([{
+            username: message.username,
+            content: message.content,
+            id: message.id,
+            type: message.type
+          }])
+        })
+
+          break;
+        case "postNotification":
+          // handle incoming notification
+
+          break;
+        default:
+        // show an error in the console if the message type is unknown
+        throw new Error("Unknown event type " + data.type);
+      }
+
       console.log(JSON.parse(event.data));
     }
   }
 
   render() {
-    const {currentUser, messages} = this.state
+    const { currentUser, messages, clientCount } = this.state
     
     return (
       <div>
-        <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
-        </nav>
-        
+        <NavBar clientCount={clientCount} />     
         <MessageList messages={messages} />      
         <ChatBar userProp={currentUser.name} messages={messages} submitMessage={this.newMessage}/>
       </div>
