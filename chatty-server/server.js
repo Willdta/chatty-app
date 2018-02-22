@@ -3,6 +3,7 @@ const SocketServer = require('ws').Server
 const uuid = require('uuid/v4')
 const querystring = require('querystring')
 const fetch = require('node-fetch')
+const htmlColors = require('html-colors')
 // Set the port to 3001
 const PORT = 3001
 
@@ -15,12 +16,10 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server })
 
-// Set up a callback that will run when a client connects to the server
-// When a client connects they are assigned a socket, represented by
-// the ws parameter in the callback.
-
+// Initialize a counter for websocket connections
 let counter = 0
 
+// Make an object to allow us to reference its keys in the client side "type" and "count"
 const countConnections = {
   type: 'counting connections'
 }
@@ -35,32 +34,40 @@ wss.on('connection', (ws) => {
   console.log('Client connected')
 
   ws.on('message', handleMessage)
-
+  
   counter++
   countConnections.count = counter
   console.log(countConnections.count)
   wss.broadcast(countConnections)
-
+  
   ws.on('close', () => {
     counter--
     countConnections.count = counter
     console.log(countConnections.count)
-
+    
     wss.broadcast(countConnections)
     console.log('Client disconnected')
   })
 })
 
 function handleMessage(message) {
+  
+  let randomColours = htmlColors.random()
   let parsedMessage = JSON.parse(message)
   parsedMessage.id = uuid()
+  parsedMessage.randomColours = randomColours
   console.log(message)
 
+  // If the content matches "/giphy", display something from giphy
+  
   if (matches = parsedMessage.content.match(/^\/giphy (.+)$/)) {
     let qs = querystring.stringify({
       api_key: 'FHIiLMHz4VuWvnXvdlUBAtI61kEqEuN4',
       tag: matches[1]
     })
+
+    // Fetch this site (giphy)
+
     fetch(`https://api.giphy.com/v1/gifs/random?${qs}`)
       .then(resp => {
         return resp.json()
@@ -71,9 +78,9 @@ function handleMessage(message) {
         console.log(`Sent: ${parsedMessage}`)
       })
   } else if (matches = parsedMessage.content.match(/\.jpg$|\.gif$|\.png$/)) {
-    parsedMessage.content = `<img style="width:40%;height:50%;" src="${parsedMessage.content}" alt=""/>`
-    wss.broadcast(parsedMessage)
-    console.log(`Sent: ${parsedMessage}`)
+      parsedMessage.content = `<img style="width:40%;height:50%;" src="${parsedMessage.content}" alt=""/>`
+      wss.broadcast(parsedMessage)
+      console.log(`Sent: ${parsedMessage}`)
   } else {
     wss.clients.forEach(function each(client) {
       client.send(JSON.stringify(parsedMessage))

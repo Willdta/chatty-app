@@ -43,28 +43,34 @@ class App extends Component {
           break;
 
         case 'postMessage':
-          this.setState({
-            messages: this.state.messages.concat([{
-              username: message.username,
-              content: message.content,
-              id: message.id,
-              type: message.type
-            }])
-          })
+          // this.setState({
+          //   messages: this.state.messages.concat([{
+          //     username: message.username,
+          //     content: message.content,
+          //     id: message.id,
+          //     type: message.type,
+          //     randomColours: message.randomColours    
+          //   }])
+          // })
+
+          this.setState({messages: this.state.messages.concat([message])})
 
           break;
 
         case 'postNotification':
 
-          this.setState({
-            messages: this.state.messages.concat([{
-              username: message.username,
-              content: message.content,
-              id: message.id,
-              type: message.type
-            }])
-          })
+          // this.setState({
+          //   messages: this.state.messages.concat([{
+          //     username: message.username,
+          //     content: message.content,
+          //     id: message.id,
+          //     type: message.type,
+          //     randomColours: message.randomColours              
+          //   }])
+          // })
 
+          this.setState({ messages: this.state.messages.concat([message]) })
+          
           break;
 
         default: 

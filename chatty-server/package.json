@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2",
+    "html-colors": "0.0.4",
     "node-fetch": "^2.0.0",
     "querystring": "^0.2.0",
     "uuid": "^3.2.1",
