@@ -34,17 +34,7 @@ class App extends Component {
     this.socket.onmessage = (event) => {
 
       let message = JSON.parse(event.data)
-    
-      
-      // this.setState({
-      //   messages: this.state.messages.concat([{
-      //     username: message.username,
-      //     content: message.content,
-      //     id: message.id,
-      //     type: message.type
-      //   }])
-      // })
-
+  
       switch (message.type) {
         case 'counting connections':
 
