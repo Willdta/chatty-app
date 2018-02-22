@@ -38,12 +38,11 @@ class App extends Component {
       switch (message.type) {
         case 'counting connections':
 
-        this.setState({clientCount: message.count})
+          this.setState({clientCount: message.count})
         
           break;
 
         case 'postMessage':
-
           this.setState({
             messages: this.state.messages.concat([{
               username: message.username,
@@ -68,9 +67,9 @@ class App extends Component {
 
           break;
 
-        default:
+        default: 
         // show an error in the console if the message type is unknown
-        throw new Error("Unknown event type " + message.type);
+          throw new Error("Unknown event type " + message.type);
       }
 
       console.log(JSON.parse(event.data));

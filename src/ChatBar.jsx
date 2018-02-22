@@ -30,7 +30,7 @@ class ChatBar extends Component {
             onChange={this.changeUsername}
             onKeyPress = {e => {
               if (e.key === 'Enter') {
-                this.changeUserName()
+                this.changeUserName(e.target.value)
               }
             }}
           />
@@ -49,11 +49,11 @@ class ChatBar extends Component {
     )
   }
 
-  changeUserName = () => {
+  changeUserName = (username) => {
     this.props.submitMessage(
       {
         type: 'postNotification',
-        content: `Anon changed his name to ${this.state.username}`
+        content: `${username} changed his name to ${this.state.username}`
       }
     )
   }
@@ -70,32 +70,3 @@ class ChatBar extends Component {
 }
 
 export default ChatBar;
-
-// switch (message.type) {
-      //   case "counting connections":
-      //   // handle incoming message
-      //   console.log('test', message)
-      //     this.setState({ clientNumbers: message.count })
-
-      //     break;
-      //   case "postMessdsdage":
-      //   // handle incoming notification
-
-      //   // this.setState({
-      //   //   messages: this.state.messages.concat([{
-      //   //     username: message.username,
-      //   //     content: message.content,
-      //   //     id: message.id,
-      //   //     type: message.type
-      //   //   }])
-      //   // })
-
-      //     break;
-      //   case "currentClients":
-      //     // handle incoming notification
-
-      //     break;
-      //   default:
-      //   // show an error in the console if the message type is unknown
-      //   throw new Error("Unknown event type " + data.type);
-      // }
