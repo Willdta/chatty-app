@@ -10,7 +10,8 @@ class App extends Component {
     // Our initial base state
     this.state = {
       currentUser: {name: 'Anon'}, // If username is not entered, it will be 'Anon'
-      messages: []
+      messages: [],
+      randomColours: ''
     }
   }
 
@@ -20,7 +21,8 @@ class App extends Component {
       username: message.username,
       content: message.content,
       id: message.id,
-      type: message.type
+      type: message.type,
+      randomColours: this.state.randomColours
     }
 
     let fullMessage = JSON.stringify(messages)
@@ -45,8 +47,12 @@ class App extends Component {
           this.setState({ clientCount: message.count })
           break
 
+        case 'color change':
+          this.setState({ randomColours: message.randomColours })
+
         // Send the username and content
         case 'postMessage':
+        
         // Send the notification
         case 'postNotification':  
           this.setState({ messages: this.state.messages.concat([message]) })

@@ -42,6 +42,11 @@ wss.on('connection', (ws) => {
   // Initiate the function for each unique connection
   randomColours = htmlColors.random()
   
+  ws.send(JSON.stringify({
+    randomColours: randomColours,
+    type: 'color change'
+  }))
+  
   // On message submit, call this function
   ws.on('message', handleMessage)
   
@@ -74,7 +79,7 @@ function handleMessage(message) {
   parsedMessage.id = uuid()
 
   // Pass random color to client
-  parsedMessage.randomColours = randomColours
+  // parsedMessage.randomColours = randomColours
   console.log(message)
 
   // If the content matches "/giphy", display something from giphy
