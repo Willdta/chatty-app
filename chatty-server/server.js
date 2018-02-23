@@ -17,6 +17,9 @@ const server = express()
 // Create the WebSockets server
 const wss = new SocketServer({ server })
 
+// Generate a random color for a users username
+let randomColours
+
 // Initialize a counter for websocket connections
 let counter = 0
 
@@ -32,10 +35,11 @@ wss.broadcast = function broadcast(data) {
   })
 }
 
-// Generate a random color for a users username
-
 wss.on('connection', (ws) => {
   console.log('Client connected')
+
+  // Initiate the function for each unique connection
+  randomColours = htmlColors.random()
   
   // On message submit, call this function
   ws.on('message', handleMessage)
@@ -62,10 +66,13 @@ wss.on('connection', (ws) => {
 })
 
 // This function handles what happens on message submit
-function handleMessage(message) {  
-  let randomColours = htmlColors.random()
+function handleMessage(message) {
   let parsedMessage = JSON.parse(message)
+  
+  // Generate unique user ID
   parsedMessage.id = uuid()
+
+  // Pass random color to client
   parsedMessage.randomColours = randomColours
   console.log(message)
 
