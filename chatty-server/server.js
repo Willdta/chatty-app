@@ -9,7 +9,8 @@ const PORT = 3001
 
 // Create a new express server
 const server = express()
-  // Make the express server serve static assets (html, javascript, css) from the /public folder
+  
+// Make the express server serve static assets (html, javascript, css) from the /public folder
   .use(express.static('public'))
   .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${PORT}`))
 
@@ -24,22 +25,32 @@ const countConnections = {
   type: 'counting connections'
 }
 
+// Broadcast to every user connected to same host
 wss.broadcast = function broadcast(data) {
   wss.clients.forEach(function each(client) {
     client.send(JSON.stringify(data))
   })
 }
 
+// Generate a random color for a users username
+
 wss.on('connection', (ws) => {
   console.log('Client connected')
-
+  
+  // On message submit, call this function
   ws.on('message', handleMessage)
   
+  // Increment
   counter++
+  
+  // Set key to be counter
   countConnections.count = counter
   console.log(countConnections.count)
+  
+  // Send it off
   wss.broadcast(countConnections)
   
+  // Connection close
   ws.on('close', () => {
     counter--
     countConnections.count = counter
@@ -50,8 +61,8 @@ wss.on('connection', (ws) => {
   })
 })
 
-function handleMessage(message) {
-  
+// This function handles what happens on message submit
+function handleMessage(message) {  
   let randomColours = htmlColors.random()
   let parsedMessage = JSON.parse(message)
   parsedMessage.id = uuid()
@@ -59,7 +70,6 @@ function handleMessage(message) {
   console.log(message)
 
   // If the content matches "/giphy", display something from giphy
-  
   if (matches = parsedMessage.content.match(/^\/giphy (.+)$/)) {
     let qs = querystring.stringify({
       api_key: 'FHIiLMHz4VuWvnXvdlUBAtI61kEqEuN4',
@@ -67,20 +77,25 @@ function handleMessage(message) {
     })
 
     // Fetch this site (giphy)
-
     fetch(`https://api.giphy.com/v1/gifs/random?${qs}`)
       .then(resp => {
         return resp.json()
       })
+
+      // Grab a random image from Giphys JSON and display it
       .then(json => {
         parsedMessage.content = `<img style="width:40%;height:50%;" src="${json.data.image_url}" alt=""/>`
         wss.broadcast(parsedMessage)
         console.log(`Sent: ${parsedMessage}`)
       })
+
+  // Here we grab any jpg, gif, png file    
   } else if (matches = parsedMessage.content.match(/\.jpg$|\.gif$|\.png$/)) {
       parsedMessage.content = `<img style="width:40%;height:50%;" src="${parsedMessage.content}" alt=""/>`
       wss.broadcast(parsedMessage)
       console.log(`Sent: ${parsedMessage}`)
+  
+  // Otherwise, just display the message
   } else {
     wss.clients.forEach(function each(client) {
       client.send(JSON.stringify(parsedMessage))

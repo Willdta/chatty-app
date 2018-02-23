@@ -4,6 +4,7 @@ class Message extends Component {
   render() {
     const { message, randomColours } = this.props
 
+    // Render the notification
     if (message.type === 'postNotification') {
       return (
         <div className="message-system">
@@ -11,12 +12,13 @@ class Message extends Component {
         </div>
       )
     
+    // Render the message and username
     } else {
-
+      
+      // Here we a declare an object to set colors for username
       let spanStyle = {
         color: randomColours
       }
-
 
       return (
         <div className="message">

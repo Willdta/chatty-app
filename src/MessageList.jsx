@@ -7,6 +7,7 @@ class MessageList extends Component {
 
     return (
       <main className="messages">
+        {/* Here we loop through the message to render content*/}
         {
           messages.map(message => {
             return (
