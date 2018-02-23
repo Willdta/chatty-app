@@ -5,8 +5,8 @@ A chat app built with websockets, allowing users to communicate with each other 
 
 ### Images
 
-["Main UI"](https://github.com/Willdta/chatty-app/blob/master/docs/Main%20UI.PNG?raw=true)
-["Chat with Giphys"](https://github.com/Willdta/chatty-app/blob/master/docs/giphy%20communication.PNG?raw=true)
+!["Main UI"](https://github.com/Willdta/chatty-app/blob/master/docs/Main%20UI.PNG?raw=true)
+!["Chat with Giphys"](https://github.com/Willdta/chatty-app/blob/master/docs/giphy%20communication.PNG?raw=true)
 
 ### Main Folder Usage
 
