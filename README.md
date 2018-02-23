@@ -33,9 +33,7 @@ For example, if you copy a file called my_image.png into the build folder you ca
 
 This boilerplate project includes React ESLint configuration.
 
-```
-npm run lint
-```
+`npm run lint`
 
 ### Chatty-Server Folder Dependencies
 
@@ -45,11 +43,10 @@ npm run lint
 * querystring
 * node-fetch
 
-* For uuid, please require your version:
+* For uuid, please require your version.
+* Here's an example using version 4
 
-```
-const 
-```
+`const uuid = require('uuid/v4')` 
 
 ### Main Folder Dependencies
 
