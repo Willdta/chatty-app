@@ -5,15 +5,30 @@ A chat app built with websockets, allowing users to communicate with each other 
 
 ### Main Folder Usage
 
-1. Fork and clone
-2. npm install
-3. run npm start
-3. open on http://localhost:3000
+Fork and clone
+
+```
+npm install
+```
+
+```
+npm start
+```
+npm start
+
+open on http://localhost:3000
 
 ### Chatty-Server Folder Usage
 
-1. npm install
-2. run npm start inside that folder
+Please install dependencies inside the folder
+
+```
+npm install
+```
+
+```
+npm start
+``` 
 
 ### Static Files
 
