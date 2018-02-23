@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class NavBar extends Component {
   render() {
-
     const { clientCount } = this.props
 
     return (
@@ -14,4 +13,4 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default NavBar

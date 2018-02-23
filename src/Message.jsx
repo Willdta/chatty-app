@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class Message extends Component {
   render() {
@@ -29,4 +29,4 @@ class Message extends Component {
     }
   }
 }
-export default Message;
+export default Message

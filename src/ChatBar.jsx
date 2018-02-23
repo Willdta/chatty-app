@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 
 class ChatBar extends Component {
   constructor(props) {
@@ -25,7 +25,9 @@ class ChatBar extends Component {
       <div>
         <footer className="chatbar">
           <input className="chatbar-username" placeholder="Your Name (Optional)" 
-            onChange={this.changeUsername}
+            onChange={ this.changeUsername }
+            
+            // If username is changed, display notification on 'Enter'
             onKeyPress = {e => {
               if (e.key === 'Enter') {
                 this.changeUserName(e.target.value)
@@ -33,10 +35,10 @@ class ChatBar extends Component {
             }}
           />
           <input className="chatbar-message" placeholder="Type a message and hit ENTER" 
-            onChange = {this.changeContent}
+            onChange = { this.changeContent }
             
-            // If there's no content, prevent a submit
-            // otherwise submit the message & username
+            // If there's no content, prevent submitting
+            // Otherwise submit the message & username
             onKeyPress = {e => {
               if (e.key === 'Enter') {            
                 if (!this.state.content) {
@@ -55,17 +57,17 @@ class ChatBar extends Component {
 
   // Here we render a notification that the user changed his name 
   changeUserName = (username) => {
-    this.props.submitMessage(
+    this.props.newMessage(
       {
         type: 'postNotification',
-        content: `Anon changed his name to ${this.state.username}`
+        content: `Anon changed his name to ${ this.state.username }`
       }
     )
   }
 
   // Here we submit the content and message as per usual
   submitInput = () => {
-    this.props.submitMessage(
+    this.props.newMessage(
       {
         type: 'postMessage',
         username: this.state.username,
@@ -76,4 +78,4 @@ class ChatBar extends Component {
   }
 }
 
-export default ChatBar;
+export default ChatBar
