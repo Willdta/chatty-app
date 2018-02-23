@@ -22,13 +22,8 @@ open on http://localhost:3000
 
 Please install dependencies inside the folder
 
-```
-npm install
-```
-
-```
-npm start
-``` 
+1. `npm install`
+2. `npm start`
 
 ### Static Files
 
@@ -52,7 +47,11 @@ npm run lint
 * querystring
 * node-fetch
 
-* For uuid, please require your version: 'uuid/v(your version)'
+* For uuid, please require your version:
+
+```
+const 
+```
 
 ### Main Folder Dependencies
 
