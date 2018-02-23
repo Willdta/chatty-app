@@ -5,21 +5,19 @@ class ChatBar extends Component {
     super(props)
 
     this.state = {
-      username: 'Anon',
+      username: 'Anon', // Anon by default if no username is entered
       content: ''
     }
   }
 
+  // Setting username to whatever user types
   changeUsername = e => {
     this.setState({ username: e.target.value })
   }
 
+  // Setting content to whatever the user types
   changeContent = e => {
     this.setState({ content: e.target.value })
-  }
-
-  clearInput = () => {
-    this.contentInput.value = '' 
   }
 
   render() {
@@ -35,12 +33,18 @@ class ChatBar extends Component {
             }}
           />
           <input className="chatbar-message" placeholder="Type a message and hit ENTER" 
-            ref={el => this.contentInput = el}
             onChange = {this.changeContent}
+            
+            // If there's no content, prevent a submit
+            // otherwise submit the message & username
             onKeyPress = {e => {
               if (e.key === 'Enter') {            
-                this.submitInput()
-                this.clearInput()
+                if (!this.state.content) {
+                  e.preventDefault()
+                } else {
+                  this.submitInput()
+                  e.target.value = ''
+                }
               }
             }}
           />
@@ -49,15 +53,17 @@ class ChatBar extends Component {
     )
   }
 
+  // Here we render a notification that the user changed his name 
   changeUserName = (username) => {
     this.props.submitMessage(
       {
         type: 'postNotification',
-        content: `${username} changed his name to ${this.state.username}`
+        content: `Anon changed his name to ${this.state.username}`
       }
     )
   }
 
+  // Here we submit the content and message as per usual
   submitInput = () => {
     this.props.submitMessage(
       {
@@ -65,7 +71,8 @@ class ChatBar extends Component {
         username: this.state.username,
         content: this.state.content
       }
-    )
+    ) 
+    this.setState({ content: '' }) 
   }
 }
 
