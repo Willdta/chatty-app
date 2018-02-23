@@ -37,11 +37,11 @@ wss.broadcast = function broadcast(data) {
 }
 
 wss.on('connection', (ws) => {
-  console.log('Client connected')
 
   // Initiate the function for each unique connection
   randomColours = htmlColors.random()
   
+  // Handle username color
   ws.send(JSON.stringify({
     randomColours: randomColours,
     type: 'color change'
@@ -55,7 +55,6 @@ wss.on('connection', (ws) => {
   
   // Set key to be counter
   countConnections.count = counter
-  console.log(countConnections.count)
   
   // Send it off
   wss.broadcast(countConnections)
@@ -64,10 +63,8 @@ wss.on('connection', (ws) => {
   ws.on('close', () => {
     counter--
     countConnections.count = counter
-    console.log(countConnections.count)
     
     wss.broadcast(countConnections)
-    console.log('Client disconnected')
   })
 })
 
@@ -77,10 +74,6 @@ function handleMessage(message) {
   
   // Generate unique user ID
   parsedMessage.id = uuid()
-
-  // Pass random color to client
-  // parsedMessage.randomColours = randomColours
-  console.log(message)
 
   // If the content matches "/giphy", display something from giphy
   if (matches = parsedMessage.content.match(/^\/giphy (.+)$/)) {
@@ -99,20 +92,17 @@ function handleMessage(message) {
       .then(json => {
         parsedMessage.content = `<img style="width:40%;height:50%;" src="${json.data.image_url}" alt=""/>`
         wss.broadcast(parsedMessage)
-        console.log(`Sent: ${parsedMessage}`)
       })
 
   // Here we grab any jpg, gif, png file    
   } else if (matches = parsedMessage.content.match(/\.jpg$|\.gif$|\.png$/)) {
       parsedMessage.content = `<img style="width:40%;height:50%;" src="${parsedMessage.content}" alt=""/>`
       wss.broadcast(parsedMessage)
-      console.log(`Sent: ${parsedMessage}`)
   
   // Otherwise, just display the message
   } else {
     wss.clients.forEach(function each(client) {
       client.send(JSON.stringify(parsedMessage))
-      console.log('message send', JSON.stringify(parsedMessage))
     })
   }
 }
